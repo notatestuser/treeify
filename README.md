@@ -1,7 +1,8 @@
 node-treeify
 ============
 
-Converts a JS object into a nice, visible depth-indented tree for console printing.
+Converts a JS object into a nice, visible depth-indented tree for console printing. The output is 
+similar to what you get with running the ```tree``` command on Unixy platforms.
 
 This:
 ```js
