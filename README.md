@@ -1,8 +1,10 @@
 node-treeify
 ============
 
-Converts a JS object into a nice, visible depth-indented tree for console printing. The output is 
-similar to what you get with running the ```tree``` command on Unixy platforms.
+Converts a JS object into a nice, visible depth-indented tree for console printing. The output 
+generated is similar to what you get with running the ```tree``` command on Unixy platforms.
+
+In fact, the ```fs_tree``` example is effectively a clone of ```tree```. Try it out!
 
 This:
 ```js
