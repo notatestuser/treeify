@@ -140,15 +140,15 @@ vows.describe('tree-test').addBatch({
    'A tree created from a multi-level object': {
       topic: { 
          oranges: {                  //  ├─ oranges
-            'mandarin': {            //  │  └─ mandarin
-               clementine: null,     //  │     ├─ clementine
-               tangerine:            //  │     └─ tangerine
+            'mandarin': {            //  │  └─ mandarin
+               clementine: null,     //  │     ├─ clementine
+               tangerine:            //  │     └─ tangerine
                   'so cheap and juicy!'
             }
          },
          apples: {                   //  └─ apples
-            'gala': null,            //     ├─ gala
-            'pink lady': null        //     └─ pink lady
+            'gala': null,            //     ├─ gala
+            'pink lady': null        //     └─ pink lady
          } 
       },
 
@@ -162,17 +162,17 @@ vows.describe('tree-test').addBatch({
                this.expect(7);
             },
             on: checkLines('├─ oranges', 
-                           '│  └─ mandarin',
-                           '│     ├─ clementine',
-                           '│     └─ tangerine',
+                           '│  └─ mandarin',
+                           '│     ├─ clementine',
+                           '│     └─ tangerine',
                            '└─ apples',
-                           '   ├─ gala',
-                           '   └─ pink lady')
+                           '   ├─ gala',
+                           '   └─ pink lady')
          },
          'with values shown': {
             topic: withValuesShown(true),
             on: checkLines(null, null, null,
-                           '│     └─ tangerine: so cheap and juicy!')
+                           '│     └─ tangerine: so cheap and juicy!')
          }
       },
 
@@ -185,7 +185,7 @@ vows.describe('tree-test').addBatch({
             '(split into an array of lines)': {
                topic: function(tree) { return tree.split(/\n/g) },
                'has a correct first line': is('├─ oranges', 0),
-               'has a correct third line': is('│     └─ tangerine: so cheap and juicy!', 3),
+               'has a correct third line': is('│     └─ tangerine: so cheap and juicy!', 3),
                'has nothing at the end':   is('', 7)
             }
          }
@@ -206,9 +206,9 @@ vows.describe('tree-test').addBatch({
             topic: withValuesShown(true),
             on: checkLines('├─ one: one',
                            '├─ two',
-                           '│  └─ four: four',
+                           '│  └─ four: four',
                            '└─ three',
-                           '   └─ four: four')
+                           '   └─ four: four')
          }
       }
    },
@@ -248,8 +248,8 @@ vows.describe('tree-test').addBatch({
          'with values shown': {
             topic: withValuesShown(true),
             on: checkLines('├─ array',
-                           '│  ├─ 0: one',
-                           '│  └─ 1: two',
+                           '│  ├─ 0: one',
+                           '│  └─ 1: two',
                            '├─ numeric: 42',
                            '├─ decimal: 42.24',
                            '├─ bool: false',
