@@ -51,6 +51,11 @@
     // can we descend into the next item?
     if ( ! circular && typeof root === 'object') {
       for (var branch in root) {
+        // always exclude anything in the object's prototype
+        if ( ! root.hasOwnProperty(branch)) {
+          continue;
+        }
+        // hold your breath for recursive action
         lastKey = ++index === Object.keys(root).length;
         growBranch(branch, root[branch], lastKey, lastStatesCopy, showValues, callback);
       }

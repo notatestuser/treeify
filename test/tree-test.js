@@ -257,6 +257,32 @@ vows.describe('tree-test').addBatch({
                            '└─ undef: undefined')
          }
       }
+   },
+
+   'A tree created from an object with prototyped functions': {
+      topic: function() {
+         var func = function(){
+            this.Friendly = 'stuff';
+         }
+         func.prototype.Nasty = function(){}
+         return new func();
+      },
+
+      'when returned as a whole tree': {
+         topic: treeifyEntirely,
+
+         'with values shown': {
+            topic: withValuesShown(true),
+
+            'and split into an array of lines': {
+               topic: function(tree) { return tree.split(/\n/g) },
+               'is a one liner output (with a following blank line)': function(lines) {
+                  assert.equal(lines.length, 2);
+               },
+               'has a correct first line': is('└─ Friendly: stuff', 0)
+            }
+         }
+      }
    }
 
 }).export(module);
