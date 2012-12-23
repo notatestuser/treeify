@@ -85,8 +85,8 @@
     return tree;
   };
   
-  Treetify.puts = function(obj) {
-    console.log(Treeify.asTree(obj, true, false));
+  Treeify.puts = function(obj) {
+    console.log(Treeify.asTree(obj, true, true));
   };
-
+  
 })();
