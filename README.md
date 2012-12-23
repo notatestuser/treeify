@@ -26,7 +26,19 @@ See the other included examples or the test suite for usage scenarios.
 
 Usage
 -----
+The methods exposed to you are as follows, in a strange kind of signature notation:
 
+### asLines()
+```js
+treeify.asLines(obj, showValues (boolean), lineCallback (function))
+```
+### asTree()
+```js
+treeify.asTree(obj, showValues (boolean), hideFunctions (boolean)): String
+```
+
+Wait, what?
+-----------
 First you'll want to run this command in your project's root folder:
 ```
 $ npm install treeify
@@ -43,21 +55,9 @@ console.log(
 );
 ```
 
-The methods exposed to you are as follows, in a strange kind of signature notation:
-### asLines()
-```js
-treeify.asLines(obj, showValues (boolean), lineCallback (function))
-```
-### asTree()
-```js
-treeify.asTree(obj, showValues (boolean), hideFunctions (boolean)): String
-```
-
 Running the tests
 -----------------
-
 There's a pretty extensive suite of Vows tests included.
-
 ```
 $ npm test
 ```
