@@ -43,6 +43,16 @@ console.log(
 );
 ```
 
+The methods exposed to you are as follows, in a strange kind of signature notation:
+### asLines()
+```js
+treeify.asLines(obj, showValues (boolean), lineCallback (function))
+```
+### asTree()
+```js
+treeify.asTree(obj, showValues (boolean), hideFunctions (boolean)): String
+```
+
 Running the tests
 -----------------
 
