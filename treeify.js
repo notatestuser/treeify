@@ -22,7 +22,7 @@
     return str;
   }
 
-  function growBranch(key, root, last, lastStates, showValues, callback) {
+  function growBranch(key, root, last, lastStates, showValues, hideFunctions, callback) {
     var line = '', index = 0, lastKey, circular, lastStatesCopy = lastStates.slice(0);
 
     if (lastStatesCopy.push([ root, last ]) && lastStates.length > 0) {
@@ -52,12 +52,15 @@
     if ( ! circular && typeof root === 'object') {
       for (var branch in root) {
         // always exclude anything in the object's prototype
-        if ( ! root.hasOwnProperty(branch)) {
+        if (!root.hasOwnProperty(branch)) {
           continue;
         }
+        if (hideFunctions&& ((typeof root[branch])==="function")) {
+                      continue;
+                    }
         // hold your breath for recursive action
         lastKey = ++index === Object.keys(root).length;
-        growBranch(branch, root[branch], lastKey, lastStatesCopy, showValues, callback);
+        growBranch(branch, root[branch], lastKey, lastStatesCopy, showValues, hideFunctions, callback);
       }
     }
   };
@@ -74,12 +77,13 @@
   // --------------------
   // Outputs the entire tree, returning it as a string with line breaks.
 
-  Treeify.asTree = function(obj, showValues) {
+  Treeify.asTree = function(obj, showValues, hideFunctions) {
     var tree = '';
-    growBranch('.', obj, false, [], showValues, function(line) {
+    growBranch('.', obj, false, [], showValues, hideFunctions, function(line) {
       tree += line + '\n';
     });
     return tree;
   };
+  
 
 })();

@@ -18,13 +18,18 @@ function treeifyByLine(obj) {
 }
 
 function treeifyEntirely(obj) {
-   return function(showValues) {
-      return treeify.asTree(obj, showValues);
+   return function(showValues, hideFunctions) {
+      return treeify.asTree(obj, showValues, hideFunctions);
    };
 }
 
 function withValuesShown(showValues) {
-   return function(func){ return func(showValues) };
+   return function(func){ return func(showValues, false) };
+}
+
+function withValuesShownFunctionsHidden() {
+  return function(func){ return func(true, true) };
+  
 }
 
 function is(content, arrayIndex) {
@@ -280,6 +285,31 @@ vows.describe('tree-test').addBatch({
                   assert.equal(lines.length, 2);
                },
                'has a correct first line': is('└─ Friendly: stuff', 0)
+            }
+         }
+      }
+   },
+   'A tree with functions': {
+      topic: {
+        func:function(){},
+        Friendly:"stuff",
+        Another:"stuff"
+      },
+
+      'when returned as a whole tree': {
+         topic: treeifyEntirely,
+
+         'with values shown, but functions hidden': {
+            topic: withValuesShownFunctionsHidden(),
+
+            'and split into an array of lines': {
+               topic: function(tree) { 
+                 console.error(tree);
+                 return tree.split(/\n/g) },
+               'is a one liner output (with a following blank line)': function(lines) {
+                  assert.equal(lines.length, 3);
+               },
+               'has a correct first line': is('├─ Friendly: stuff', 0)
             }
          }
       }
