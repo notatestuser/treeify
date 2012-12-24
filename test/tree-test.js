@@ -5,16 +5,29 @@ var treeify = require('../treeify'),
 
 // - helper functions -----------------
 
+function treeifyByLineGuts(args) {
+   var emitter = new events.EventEmitter(),
+       lineNum = 0;
+   args.push(function(line) {
+      emitter.emit('success', line);
+      emitter.emit('line ' + (++lineNum), line);
+   });
+   treeify.asLines.apply(this, args);
+   return emitter;
+}
+
 function treeifyByLine(obj) {
    return function(showValues) {
-      var emitter = new events.EventEmitter(),
-          lineNum = 0;
-      treeify.asLines(obj, showValues, function(line) {
-         emitter.emit('success', line);
-         emitter.emit('line ' + (++lineNum), line);
-      });
-      return emitter;
-   };   
+      var arguments = [ obj, showValues ];
+      return treeifyByLineGuts(arguments);
+   };
+}
+
+function treeifyByLineWithHideFunctionsArgument(obj) {
+   return function(showValues, hideFunctions) {
+      var arguments = [ obj, showValues, hideFunctions ];
+      return treeifyByLineGuts(arguments);
+   };
 }
 
 function treeifyEntirely(obj) {
@@ -29,7 +42,7 @@ function withValuesShown(showValues) {
 
 function withValuesShownFunctionsHidden() {
   return function(func){ return func(true, true) };
-  
+
 }
 
 function is(content, arrayIndex) {
@@ -57,10 +70,10 @@ function checkLines(/* ... */) {
 // - the beautiful test suite ---------
 
 vows.describe('tree-test').addBatch({
-   
+
    'A tree created from an empty object': {
       topic: {},
-      
+
       'when returned as a whole tree': {
          topic: treeifyEntirely,
 
@@ -76,7 +89,7 @@ vows.describe('tree-test').addBatch({
    },
 
    'A tree created from a single-level object': {
-      topic: { 
+      topic: {
          apples: 'gala',      //  ├─ apples: gala
          oranges: 'mandarin'  //  └─ oranges: mandarin
       },
@@ -86,20 +99,20 @@ vows.describe('tree-test').addBatch({
 
          'with values hidden': {
             topic: withValuesShown(false),
-            
+
             'is two lines long': function(err, line) {
                this.expect(2);
             },
-            on: checkLines('├─ apples', 
+            on: checkLines('├─ apples',
                            '└─ oranges')
          },
          'with values shown': {
             topic: withValuesShown(true),
-            
+
             'is two lines long': function(err, line) {
                this.expect(2);
             },
-            on: checkLines('├─ apples: gala', 
+            on: checkLines('├─ apples: gala',
                            '└─ oranges: mandarin')
          }
       },
@@ -143,7 +156,7 @@ vows.describe('tree-test').addBatch({
    },
 
    'A tree created from a multi-level object': {
-      topic: { 
+      topic: {
          oranges: {                  //  ├─ oranges
             'mandarin': {            //  │  └─ mandarin
                clementine: null,     //  │     ├─ clementine
@@ -154,7 +167,7 @@ vows.describe('tree-test').addBatch({
          apples: {                   //  └─ apples
             'gala': null,            //     ├─ gala
             'pink lady': null        //     └─ pink lady
-         } 
+         }
       },
 
       'when returned line-by-line': {
@@ -162,11 +175,11 @@ vows.describe('tree-test').addBatch({
 
          'with values hidden': {
             topic: withValuesShown(false),
-            
+
             'is seven lines long': function(err, line) {
                this.expect(7);
             },
-            on: checkLines('├─ oranges', 
+            on: checkLines('├─ oranges',
                            '│  └─ mandarin',
                            '│     ├─ clementine',
                            '│     └─ tangerine',
@@ -296,6 +309,20 @@ vows.describe('tree-test').addBatch({
         Another:"stuff"
       },
 
+      'when returned line-by-line': {
+         topic: treeifyByLineWithHideFunctionsArgument,
+
+         'with values shown, but functions hidden': {
+            topic: withValuesShownFunctionsHidden(),
+
+            'is two lines long': function(err, line) {
+               this.expect(2);
+            },
+            on: checkLines('├─ Friendly: stuff',
+                           '└─ Another: stuff')
+         }
+      },
+
       'when returned as a whole tree': {
          topic: treeifyEntirely,
 
@@ -303,7 +330,7 @@ vows.describe('tree-test').addBatch({
             topic: withValuesShownFunctionsHidden(),
 
             'and split into an array of lines': {
-               topic: function(tree) { 
+               topic: function(tree) {
                  console.error(tree);
                  return tree.split(/\n/g) },
                'is a one liner output (with a following blank line)': function(lines) {

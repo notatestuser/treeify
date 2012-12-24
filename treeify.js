@@ -3,7 +3,7 @@
 //     https://github.com/notatestuser/treeify.js
 
 (function() {
-  
+
   // namespacing
   var Treeify;
   if (typeof exports !== 'undefined') {
@@ -22,6 +22,22 @@
     return str;
   }
 
+  function filterKeys(obj, hideFunctions) {
+    var keys = [];
+    for (var branch in obj) {
+      // always exclude anything in the object's prototype
+      if (!obj.hasOwnProperty(branch)) {
+        continue;
+      }
+      // ... and hide any keys mapped to functions if we've been told to
+      if (hideFunctions && ((typeof obj[branch])==="function")) {
+        continue;
+      }
+      keys.push(branch);
+    }
+    return keys;
+  }
+
   function growBranch(key, root, last, lastStates, showValues, hideFunctions, callback) {
     var line = '', index = 0, lastKey, circular, lastStatesCopy = lastStates.slice(0);
 
@@ -37,31 +53,27 @@
         }
       });
 
-      // the prefix varies based on whether the key contains something to show and 
+      // the prefix varies based on whether the key contains something to show and
       // whether we're dealing with the last element in this collection
       line += makePrefix(key, last) + key;
 
       // append values and the circular reference indicator
       showValues && typeof root !== 'object' && (line += ': ' + root);
       circular && (line += ' (circular ref.)');
-      
+
       callback(line);
     }
 
     // can we descend into the next item?
     if ( ! circular && typeof root === 'object') {
-      for (var branch in root) {
-        // always exclude anything in the object's prototype
-        if (!root.hasOwnProperty(branch)) {
-          continue;
-        }
-        if (hideFunctions&& ((typeof root[branch])==="function")) {
-                      continue;
-                    }
+      var keys = filterKeys(root, hideFunctions);
+      keys.forEach(function(branch){
+        // the last key is always printed with a different prefix, so we'll need to know if we have it
+        lastKey = ++index === keys.length;
+
         // hold your breath for recursive action
-        lastKey = ++index === Object.keys(root).length;
         growBranch(branch, root[branch], lastKey, lastStatesCopy, showValues, hideFunctions, callback);
-      }
+      });
     }
   };
 
@@ -86,6 +98,6 @@
     });
     return tree;
   };
-  
+
 
 })();
