@@ -69,8 +69,10 @@
   // --------------------
   // Outputs the tree line-by-line, calling the lineCallback when each one is available.
 
-  Treeify.asLines = function(obj, showValues, lineCallback) {
-    growBranch('.', obj, false, [], showValues, lineCallback);
+  Treeify.asLines = function(obj, showValues, hideFunctions, lineCallback) {
+    /* hideFunctions and lineCallback are curried, which means we don't break apps using the older form */
+    var hideFunctionsArg = typeof hideFunctions !== 'function' ? hideFunctions : false;
+    growBranch('.', obj, false, [], showValues, hideFunctionsArg, lineCallback || hideFunctions);
   };
 
   // Treeify.asTree
