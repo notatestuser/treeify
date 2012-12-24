@@ -31,7 +31,7 @@ The methods exposed to you are as follows, in a strange kind of signature notati
 ### asLines()
 ```js
 treeify.asLines(obj, showValues (boolean), [hideFunctions (boolean),] lineCallback (function))
-// NOTE: hideFunctions is optional and may be safely omitted - this was done to not break existing uses of the previous form
+// NOTE: hideFunctions is optional and may be safely omitted - this was done to ensure we don't break uses of the previous form
 ```
 ### asTree()
 ```js
