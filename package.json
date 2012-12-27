@@ -1,6 +1,6 @@
 {
   "name": "treeify",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "author": "Luke Plaster <notatestuser@gmail.com>",
   "description": "converts a JS object into a nice, visible tree structure for the console",
   "scripts": {
@@ -22,6 +22,6 @@
     "url": "http://lp.mit-license.org/"
   }],
   "engines": {
-    "node": ">=0.8"
+    "node": ">=0.6"
   }
 }
