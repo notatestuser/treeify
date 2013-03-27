@@ -44,7 +44,7 @@ console.log(
 );
 ```
 
-### ...and in a browser
+### ...or in a browser
 
 I'll assume you're using a module loader capable of handling CommonJS dependencies.
 For RequireJS, wrapping treeify.js in the following lines and then requiring it as you 
