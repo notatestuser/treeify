@@ -26,22 +26,8 @@ In fact, the ```fs_tree``` example does a pretty good job of imitating ```tree``
 
 See the other included examples or the test suite for usage scenarios.
 
-Usage
------
-The methods exposed to you are as follows, in a strange kind of signature notation:
-
-### asLines()
-```js
-treeify.asLines(obj, showValues (boolean), [hideFunctions (boolean),] lineCallback (function))
-// NOTE: hideFunctions is optional and may be safely omitted - this was done to ensure we don't break uses of the previous form
-```
-### asTree()
-```js
-treeify.asTree(obj, showValues (boolean), hideFunctions (boolean)): String
-```
-
-Wait, what?
------------
+Installation
+------------
 First you'll want to run this command in your project's root folder:
 ```
 $ npm install treeify
@@ -56,6 +42,38 @@ console.log(
       oranges: 'mandarin'  //  └─ oranges: mandarin
    }, true)
 );
+```
+
+### ...and in a browser
+
+I'll assume you're using a module loader capable of handling CommonJS dependencies.
+For RequireJS, wrapping treeify.js in the following lines and then requiring it as you 
+would require any other dependency should work for you.
+```js
+// http://requirejs.org/docs/commonjs.html
+define(function(require, exports, module) {
+
+  //     treeify.js
+  //     Luke Plaster <notatestuser@gmail.com>
+  //     https://github.com/notatestuser/treeify.js
+  
+  ... put everything within treeify.js here ...
+  
+});
+```
+
+Usage
+-----
+The methods exposed to you are as follows, in a strange kind of signature notation:
+
+### asLines()
+```js
+treeify.asLines(obj, showValues (boolean), [hideFunctions (boolean),] lineCallback (function))
+// NOTE: hideFunctions is optional and may be safely omitted - this was done to ensure we don't break uses of the previous form
+```
+### asTree()
+```js
+treeify.asTree(obj, showValues (boolean), hideFunctions (boolean)): String
 ```
 
 Running the tests
