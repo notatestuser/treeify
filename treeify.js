@@ -2,15 +2,18 @@
 //     Luke Plaster <notatestuser@gmail.com>
 //     https://github.com/notatestuser/treeify.js
 
-(function() {
+// do the universal module definition dance
+(function (root, factory) {
 
-  // namespacing
-  var Treeify;
-  if (typeof exports !== 'undefined') {
-    Treeify = exports;
+  if (typeof exports === 'object') {
+    module.exports = factory();
+  } else if (typeof define === 'function' && define.amd) {
+    define(factory);
   } else {
-    Treeify = this.Treeify = {};
+    root.treeify = factory();
   }
+
+}(this, function() {
 
   function makePrefix(key, last) {
     var str = (last ? '└' : '├');
@@ -77,6 +80,10 @@
     }
   };
 
+  // --------------------
+
+  var Treeify = {};
+
   // Treeify.asLines
   // --------------------
   // Outputs the tree line-by-line, calling the lineCallback when each one is available.
@@ -99,5 +106,8 @@
     return tree;
   };
 
+  // --------------------
 
-})();
+  return Treeify;
+
+}));
