@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 var treeify = require('../treeify');
 
 // Based on information taken from the Tree of Life web project
