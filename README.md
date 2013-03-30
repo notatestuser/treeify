@@ -3,12 +3,12 @@ node-treeify
 
 [![Build Status](https://travis-ci.org/notatestuser/node-treeify.png?branch=master)](https://travis-ci.org/notatestuser/node-treeify)
 
-_treeify_ converts a JS object into a nice, visible depth-indented tree for console printing. The structure 
+_treeify_ converts a JS object into a nice, visible depth-indented tree for console printing. The structure
 generated is similar to what you get by running the ```tree``` command on Unixy platforms.
 
 ```
 {
-    oranges: {                                                  
+    oranges: {
         'mandarin': {                                          ├─ oranges
             clementine: null,                                  │  └─ mandarin
             tangerine: 'so cheap and juicy!'        -=>        │     ├─ clementine
@@ -46,21 +46,9 @@ console.log(
 
 ### ...or in a browser
 
-I'll assume you're using a module loader capable of handling CommonJS dependencies.
-For RequireJS, wrapping treeify.js in the following lines and then requiring it as you 
-would require any other dependency should work for you.
-```js
-// http://requirejs.org/docs/commonjs.html
-define(function(require, exports, module) {
-
-  //     treeify.js
-  //     Luke Plaster <notatestuser@gmail.com>
-  //     https://github.com/notatestuser/treeify.js
-  
-  ... put everything within treeify.js here ...
-  
-});
-```
+Treeify cooperates with Node, AMD or browser globals to create a module. This means it'll work
+in a browser regardless of whether you have an AMD-compliant module loader or not. If such
+a loader isn't found when the script is executed, you may access Treeify at ```window.treeify```.
 
 Usage
 -----
