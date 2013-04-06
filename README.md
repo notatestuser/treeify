@@ -1,7 +1,5 @@
-node-treeify
-============
-
-[![Build Status](https://travis-ci.org/notatestuser/node-treeify.png?branch=master)](https://travis-ci.org/notatestuser/node-treeify)
+treeify [![Build Status](https://travis-ci.org/notatestuser/node-treeify.png?branch=master)](https://travis-ci.org/notatestuser/node-treeify)
+=======
 
 _treeify_ converts a JS object into a nice, visible depth-indented tree for console printing. The structure
 generated is similar to what you get by running the ```tree``` command on Unixy platforms.
@@ -26,8 +24,11 @@ In fact, the ```fs_tree``` example does a pretty good job of imitating ```tree``
 
 See the other included examples or the test suite for usage scenarios.
 
-Installation
-------------
+Getting it
+----------
+
+### For use with node.js
+
 First you'll want to run this command in your project's root folder:
 ```
 $ npm install treeify
@@ -44,7 +45,7 @@ console.log(
 );
 ```
 
-### ...or in a browser
+### For use in a browser
 
 Treeify cooperates with Node, AMD or browser globals to create a module. This means it'll work
 in a browser regardless of whether you have an AMD-compliant module loader or not. If such
@@ -52,6 +53,7 @@ a loader isn't found when the script is executed, you may access Treeify at ```w
 
 Usage
 -----
+
 The methods exposed to you are as follows, in a strange kind of signature notation:
 
 ### asLines()
@@ -66,6 +68,7 @@ treeify.asTree(obj, showValues (boolean), hideFunctions (boolean)): String
 
 Running the tests
 -----------------
+
 There's a pretty extensive suite of Vows tests included.
 ```
 $ npm test
