@@ -1,7 +1,7 @@
 treeify ![](https://img.shields.io/npm/v/treeify.svg) ![](https://img.shields.io/npm/dt/treeify.svg)
 =======
 
-[![Build Status](https://travis-ci.org/notatestuser/node-treeify.png?branch=master)](https://travis-ci.org/notatestuser/node-treeify)
+[![Build Status](https://travis-ci.org/notatestuser/treeify.png?branch=master)](https://travis-ci.org/notatestuser/treeify)
 
 _treeify_ converts a JS object into a nice, visible depth-indented tree for console printing. The structure
 generated is similar to what you get by running the ```tree``` command on Unixy platforms.
