@@ -257,7 +257,8 @@ vows.describe('tree-test').addBatch({
          decimal: 42.24,
          bool: false,
          nil: null,
-         undef: undefined
+         undef: undefined,
+         date: new Date(2018,0,1)
       },
 
       'when returned line-by-line': {
@@ -272,7 +273,8 @@ vows.describe('tree-test').addBatch({
                            '├─ decimal: 42.24',
                            '├─ bool: false',
                            '├─ nil',
-                           '└─ undef: undefined')
+                           '├─ undef: undefined',
+                           '└─ date: Mon Jan 01 2018 00:00:00 GMT+0000 (UTC)')
          }
       }
    },
