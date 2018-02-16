@@ -1,6 +1,6 @@
 {
   "name": "treeify",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "author": "Luke Plaster <notatestuser@gmail.com>",
   "description": "converts a JS object into a nice and readable tree structure for the console",
   "license": "MIT",
