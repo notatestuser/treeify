@@ -60,12 +60,8 @@
       // based on the "was last element" states of whatever we're nested within,
       // we need to append either blankness or a branch to our line
       lastStates.forEach(function(lastState, idx) {
-        if (idx > 0) {
-          line += (lastState[1] ? ' ' : '│') + '  ';
-        }
-        if ( ! circular && lastState[0] === root) {
-          circular = true;
-        }
+        if (idx > 0) line += (lastState[1] ? ' ' : '│') + '  ';
+        if ( ! circular && lastState[0] === root) circular = true;
       });
 
       // the prefix varies based on whether the key contains something to show and
@@ -74,9 +70,8 @@
 
       // append values and the circular reference indicator
       if (showValues && (root === null || typeof root !== 'object' || root instanceof Date)) {
-        out = showValues(root, key);
         // null means we don't want output
-        out !== null && (line += ': ' + out);
+        out = showValues(root, key); out !== null && (line += ': ' + out);
       }
       circular && (line += ' (circular ref.)');
 
