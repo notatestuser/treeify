@@ -24,6 +24,18 @@ exports[`tree-test A tree created from a multi-level object when returned as a w
 "
 `;
 
+exports[`tree-test A tree created from a multi-level object when returned as a whole tree with values shown using a custom serializer produces correct output 1`] = `
+"
+├─ oranges
+│  └─ mandarin
+│     ├─ clementine: [clementine – null]
+│     └─ tangerine: [tangerine – so cheap and juicy!]
+└─ apples
+   ├─ gala
+   └─ pink lady: [pink lady – null]
+"
+`;
+
 exports[`tree-test A tree created from a multi-level object when returned line-by-line with values hidden runs the provided callback: calls 1`] = `
 Array [
   Array [
@@ -72,6 +84,32 @@ Array [
   ],
   Array [
     "   └─ pink lady",
+  ],
+]
+`;
+
+exports[`tree-test A tree created from a multi-level object when returned line-by-line with values shown using a custom serializer runs the provided callback: calls 1`] = `
+Array [
+  Array [
+    "├─ oranges",
+  ],
+  Array [
+    "│  └─ mandarin",
+  ],
+  Array [
+    "│     ├─ clementine: [clementine – null]",
+  ],
+  Array [
+    "│     └─ tangerine: [tangerine – so cheap and juicy!]",
+  ],
+  Array [
+    "└─ apples",
+  ],
+  Array [
+    "   ├─ gala",
+  ],
+  Array [
+    "   └─ pink lady: [pink lady – null]",
   ],
 ]
 `;

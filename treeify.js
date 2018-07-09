@@ -43,8 +43,18 @@
     return keys;
   }
 
+  function defaultValueSerializer(value) {
+    if (value instanceof Date) {
+      // uses toISOString() to stay consistent between node versions, timezones and locales
+      return isNaN(+value) ? value : value.toISOString()
+    }
+    return value
+  }
+
   function growBranch(key, root, last, lastStates, showValues, hideFunctions, callback) {
     var line = '', index = 0, lastKey, circular, lastStatesCopy = lastStates.slice(0);
+    var out;
+    if (showValues && typeof showValues !== 'function') showValues = defaultValueSerializer
 
     if (lastStatesCopy.push([ root, last ]) && lastStates.length > 0) {
       // based on the "was last element" states of whatever we're nested within,
@@ -63,9 +73,11 @@
       line += makePrefix(key, last) + key;
 
       // append values and the circular reference indicator
-      showValues && (typeof root !== 'object') && (line += ': ' + root);
-      // uses toISOString() to stay consistent between node versions, timezones and locales
-      showValues && (root instanceof Date) && (line += ': ' + (isNaN(+root) ? root : root.toISOString()));
+      if (showValues && (root === null || typeof root !== 'object' || root instanceof Date)) {
+        out = showValues(root, key);
+        // null means we don't want output
+        out !== null && (line += ': ' + out);
+      }
       circular && (line += ' (circular ref.)');
 
       callback(line);

@@ -80,6 +80,7 @@ describe('tree-test', () => {
         'pink lady': null,
       },
     }
+    const customSerializer = (v, k) => (k === 'gala' ? null : `[${k} – ${v}]`)
     describe('when returned line-by-line', () => {
       describe('with values hidden', () => {
         it('runs the provided callback', () => {
@@ -95,6 +96,13 @@ describe('tree-test', () => {
           expect(callback.mock.calls).toMatchSnapshot('calls')
         })
       })
+      describe('with values shown using a custom serializer', () => {
+        it('runs the provided callback', () => {
+          const callback = jest.fn()
+          asLines(subject, customSerializer, callback)
+          expect(callback.mock.calls).toMatchSnapshot('calls')
+        })
+      })
     })
     describe('when returned as a whole tree', () => {
       describe('with values hidden', () => {
@@ -105,6 +113,11 @@ describe('tree-test', () => {
       describe('with values shown', () => {
         it('produces correct output', () => {
           expect('\n' + asTree(subject, true)).toMatchSnapshot()
+        })
+      })
+      describe('with values shown using a custom serializer', () => {
+        it('produces correct output', () => {
+          expect('\n' + asTree(subject, customSerializer)).toMatchSnapshot()
         })
       })
     })
