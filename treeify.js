@@ -15,6 +15,8 @@
 
 }(this, function() {
 
+  var hasOwn = Object.prototype.hasOwnProperty
+
   function makePrefix(key, last) {
     var str = (last ? '└' : '├');
     if (key) {
@@ -29,7 +31,7 @@
     var keys = [];
     for (var branch in obj) {
       // always exclude anything in the object's prototype
-      if (!obj.hasOwnProperty(branch)) {
+      if (!hasOwn.call(obj, branch)) {
         continue;
       }
       // ... and hide any keys mapped to functions if we've been told to

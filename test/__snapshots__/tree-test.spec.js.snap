@@ -158,6 +158,18 @@ Array [
 ]
 `;
 
+exports[`tree-test A tree created from an object with empty prototype when returned as a whole tree with values hidden produces correct output 1`] = `
+"
+└─ foo
+"
+`;
+
+exports[`tree-test A tree created from an object with empty prototype when returned as a whole tree with values shown produces correct output 1`] = `
+"
+└─ foo: bar
+"
+`;
+
 exports[`tree-test A tree created from an object with not so circular references when returned line-by-line with values shown runs the provided callback: calls 1`] = `
 Array [
   Array [

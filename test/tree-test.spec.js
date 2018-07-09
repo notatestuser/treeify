@@ -17,6 +17,21 @@ describe('tree-test', () => {
     })
   })
 
+  describe('A tree created from an object with empty prototype when returned as a whole tree', () => {
+    const subject = Object.create(null)
+    subject.foo = 'bar'
+    describe('with values hidden', () => {
+      it('produces correct output', () => {
+        expect('\n' + asTree(subject, false)).toMatchSnapshot()
+      })
+    })
+    describe('with values shown', () => {
+      it('produces correct output', () => {
+        expect('\n' + asTree(subject, true)).toMatchSnapshot()
+      })
+    })
+  })
+
   describe('A tree created from a single-level object', () => {
     const subject = {
       apples: 'gala',
