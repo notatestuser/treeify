@@ -15,6 +15,8 @@
 
 }(this, function() {
 
+  var hasOwn = Object.prototype.hasOwnProperty
+
   function makePrefix(key, last) {
     var str = (last ? '└' : '├');
     if (key) {
@@ -29,7 +31,7 @@
     var keys = [];
     for (var branch in obj) {
       // always exclude anything in the object's prototype
-      if (!obj.hasOwnProperty(branch)) {
+      if (!hasOwn.call(obj, branch)) {
         continue;
       }
       // ... and hide any keys mapped to functions if we've been told to
@@ -41,19 +43,25 @@
     return keys;
   }
 
+  function defaultValueSerializer(value) {
+    if (value instanceof Date) {
+      // uses toISOString() to stay consistent between node versions, timezones and locales
+      return isNaN(+value) ? value : value.toISOString()
+    }
+    return value
+  }
+
   function growBranch(key, root, last, lastStates, showValues, hideFunctions, callback) {
     var line = '', index = 0, lastKey, circular, lastStatesCopy = lastStates.slice(0);
+    var out;
+    if (showValues && typeof showValues !== 'function') showValues = defaultValueSerializer
 
     if (lastStatesCopy.push([ root, last ]) && lastStates.length > 0) {
       // based on the "was last element" states of whatever we're nested within,
       // we need to append either blankness or a branch to our line
       lastStates.forEach(function(lastState, idx) {
-        if (idx > 0) {
-          line += (lastState[1] ? ' ' : '│') + '  ';
-        }
-        if ( ! circular && lastState[0] === root) {
-          circular = true;
-        }
+        if (idx > 0) line += (lastState[1] ? ' ' : '│') + '  ';
+        if ( ! circular && lastState[0] === root) circular = true;
       });
 
       // the prefix varies based on whether the key contains something to show and
@@ -61,7 +69,10 @@
       line += makePrefix(key, last) + key;
 
       // append values and the circular reference indicator
-      showValues && (typeof root !== 'object' || root instanceof Date) && (line += ': ' + root);
+      if (showValues && (root === null || typeof root !== 'object' || root instanceof Date)) {
+        // null means we don't want output
+        out = showValues(root, key); out !== null && (line += ': ' + out);
+      }
       circular && (line += ' (circular ref.)');
 
       callback(line);
