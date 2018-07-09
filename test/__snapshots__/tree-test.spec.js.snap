@@ -1,0 +1,203 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tree-test A tree created from a multi-level object when returned as a whole tree with values hidden produces correct output 1`] = `
+"
+├─ oranges
+│  └─ mandarin
+│     ├─ clementine
+│     └─ tangerine
+└─ apples
+   ├─ gala
+   └─ pink lady
+"
+`;
+
+exports[`tree-test A tree created from a multi-level object when returned as a whole tree with values shown produces correct output 1`] = `
+"
+├─ oranges
+│  └─ mandarin
+│     ├─ clementine
+│     └─ tangerine: so cheap and juicy!
+└─ apples
+   ├─ gala
+   └─ pink lady
+"
+`;
+
+exports[`tree-test A tree created from a multi-level object when returned line-by-line with values hidden runs the provided callback: calls 1`] = `
+Array [
+  Array [
+    "├─ oranges",
+  ],
+  Array [
+    "│  └─ mandarin",
+  ],
+  Array [
+    "│     ├─ clementine",
+  ],
+  Array [
+    "│     └─ tangerine",
+  ],
+  Array [
+    "└─ apples",
+  ],
+  Array [
+    "   ├─ gala",
+  ],
+  Array [
+    "   └─ pink lady",
+  ],
+]
+`;
+
+exports[`tree-test A tree created from a multi-level object when returned line-by-line with values shown runs the provided callback: calls 1`] = `
+Array [
+  Array [
+    "├─ oranges",
+  ],
+  Array [
+    "│  └─ mandarin",
+  ],
+  Array [
+    "│     ├─ clementine",
+  ],
+  Array [
+    "│     └─ tangerine: so cheap and juicy!",
+  ],
+  Array [
+    "└─ apples",
+  ],
+  Array [
+    "   ├─ gala",
+  ],
+  Array [
+    "   └─ pink lady",
+  ],
+]
+`;
+
+exports[`tree-test A tree created from a single-level object when returned as a whole tree with values hidden produces correct output 1`] = `
+"
+├─ apples
+└─ oranges
+"
+`;
+
+exports[`tree-test A tree created from a single-level object when returned as a whole tree with values shown produces correct output 1`] = `
+"
+├─ apples: gala
+└─ oranges: mandarin
+"
+`;
+
+exports[`tree-test A tree created from a single-level object when returned line-by-line with values hidden runs the provided callback: calls 1`] = `
+Array [
+  Array [
+    "├─ apples",
+  ],
+  Array [
+    "└─ oranges",
+  ],
+]
+`;
+
+exports[`tree-test A tree created from a single-level object when returned line-by-line with values shown runs the provided callback: calls 1`] = `
+Array [
+  Array [
+    "├─ apples: gala",
+  ],
+  Array [
+    "└─ oranges: mandarin",
+  ],
+]
+`;
+
+exports[`tree-test A tree created from an object containing various types when returned line-by-line with values shown runs the provided callback: calls 1`] = `
+Array [
+  Array [
+    "├─ array",
+  ],
+  Array [
+    "│  ├─ 0: one",
+  ],
+  Array [
+    "│  └─ 1: two",
+  ],
+  Array [
+    "├─ numeric: 42",
+  ],
+  Array [
+    "├─ decimal: 42.24",
+  ],
+  Array [
+    "├─ bool: false",
+  ],
+  Array [
+    "├─ nil",
+  ],
+  Array [
+    "├─ undef: undefined",
+  ],
+  Array [
+    "└─ date: 2018-01-01T00:00:00.000Z",
+  ],
+]
+`;
+
+exports[`tree-test A tree created from an object with circular references when returned line-by-line with values shown runs the provided callback: calls 1`] = `
+Array [
+  Array [
+    "├─ one: one",
+  ],
+  Array [
+    "├─ two: two",
+  ],
+  Array [
+    "└─ three (circular ref.)",
+  ],
+]
+`;
+
+exports[`tree-test A tree created from an object with not so circular references when returned line-by-line with values shown runs the provided callback: calls 1`] = `
+Array [
+  Array [
+    "├─ one: one",
+  ],
+  Array [
+    "├─ two",
+  ],
+  Array [
+    "│  └─ four: four",
+  ],
+  Array [
+    "└─ three",
+  ],
+  Array [
+    "   └─ four: four",
+  ],
+]
+`;
+
+exports[`tree-test A tree created from an object with prototyped functions when returned as a whole tree with values shown produces correct output 1`] = `
+"
+└─ Friendly: stuff
+"
+`;
+
+exports[`tree-test A tree with functions when returned as a whole tree with values shown, but functions hidden produces correct output 1`] = `
+"
+├─ Friendly: stuff
+└─ Another: stuff
+"
+`;
+
+exports[`tree-test A tree with functions when returned line-by-line with values shown, but functions hidden runs the provided callback: calls 1`] = `
+Array [
+  Array [
+    "├─ Friendly",
+  ],
+  Array [
+    "└─ Another",
+  ],
+]
+`;

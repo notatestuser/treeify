@@ -5,7 +5,7 @@
   "description": "converts a JS object into a nice and readable tree structure for the console",
   "license": "MIT",
   "scripts": {
-    "test": "./node_modules/vows/bin/vows --spec"
+    "test": "TZ=UTC ./node_modules/.bin/jest"
   },
   "main": "./treeify",
   "repository": {
@@ -13,16 +13,22 @@
     "url": "https://github.com/notatestuser/treeify.git"
   },
   "keywords": [
-    "object", "tree", "print", "console", "pretty"
+    "object",
+    "tree",
+    "print",
+    "console",
+    "pretty"
   ],
   "devDependencies": {
-    "vows": "git://github.com/Filirom1/vows.git#expect"
+    "jest": "^23.3.0"
   },
-  "licenses": [{
-    "type": "MIT",
-    "url": "http://lp.mit-license.org/"
-  }],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://lp.mit-license.org/"
+    }
+  ],
   "engines": {
-    "node": ">=0.6"
+    "node": ">= 6"
   }
 }

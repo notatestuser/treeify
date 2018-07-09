@@ -61,7 +61,9 @@
       line += makePrefix(key, last) + key;
 
       // append values and the circular reference indicator
-      showValues && (typeof root !== 'object' || root instanceof Date) && (line += ': ' + root);
+      showValues && (typeof root !== 'object') && (line += ': ' + root);
+      // uses toISOString() to stay consistent between node versions, timezones and locales
+      showValues && (root instanceof Date) && (line += ': ' + (isNaN(+root) ? root : root.toISOString()));
       circular && (line += ' (circular ref.)');
 
       callback(line);
