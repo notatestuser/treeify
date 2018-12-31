@@ -65,7 +65,7 @@ treeify.asLines(obj, showValues (boolean), [hideFunctions (boolean),] lineCallba
 ```
 ### asTree()
 ```js
-treeify.asTree(obj, showValues (boolean), hideFunctions (boolean)): String
+treeify.asTree(obj, showValues (boolean), [hideFunctions (boolean)]): String
 ```
 
 Running the tests
